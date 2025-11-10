@@ -36,9 +36,32 @@ class View:
         self.txt_titolo = ft.Text(value="Musei di Torino", size=38, weight=ft.FontWeight.BOLD)
 
         # --- Sezione 2: Filtraggio ---
+        self._dd_museo = ft.Dropdown(label = "Museo",
+                                     options=[],
+                                     width = 500,
+                                     padding = True,
+                                     on_change= self.controller.handler_save_museo)
+        self.controller.handler_popola_musei()
+
+
+        self._dd_epoca = ft.Dropdown(label = "Epoca",
+                                     options=[],
+                                     width = 500,
+                                     padding = True,
+                                     on_change= self.controller.handler_save_epoca)
+        self.controller.handler_popola_epoca()
+
         # TODO
 
         # Sezione 3: Artefatti
+
+        self._btn_show_artefatti = ft.ElevatedButton(content = ft.Text("Mostra Artefatti"),
+                                                     width = 200,
+                                                    on_click= self.controller.handler_show_artefatti
+                                                     )
+
+        self._lst_artefatti = ft.ListView(expand= True, spacing = 10, padding = 20)
+
         # TODO
 
         # --- Toggle Tema ---
@@ -53,9 +76,16 @@ class View:
             ft.Divider(),
 
             # Sezione 2: Filtraggio
+            ft.Row(controls=[self._dd_museo, self._dd_epoca],alignment= ft.MainAxisAlignment.CENTER),
+            ft.Divider(),
+
             # TODO
 
             # Sezione 3: Artefatti
+            self._btn_show_artefatti,
+            ft.Divider(),
+
+            self._lst_artefatti,
             # TODO
         )
 

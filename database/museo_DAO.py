@@ -10,4 +10,26 @@ class MuseoDAO:
     def __init__(self):
         pass
 
+# metodo per creare oggetti di tipo Museo partendo dai dati forniti nel database
+# con tutti i dati
+
+    @staticmethod
+    def read_all_museums():
+        musei= []
+        cnx = ConnessioneDB.get_connection()
+        if cnx is None:
+            print("Connection failed ")
+            return None
+        else:
+            cursor = cnx.cursor(dictionary=True)
+            query = """SELECT * 
+                        FROM  museo """
+            cursor.execute(query)
+            for row in cursor:
+                museo = row["nome"]
+                musei.append(museo)
+            cursor.close()
+            cnx.close()
+            return musei
+
     # TODO
